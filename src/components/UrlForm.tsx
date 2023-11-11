@@ -1,19 +1,8 @@
-import nodeFetch from 'node-fetch';
-
-const postNewUrl = async (body: {longurl: string, shorturl: string}) => {
-  const dbUrl: URL = new URL(`${process.env.REACT_APP_SERVER_URL}/newUrl` as string);
-  console.log(dbUrl);
-  const response = await fetch(dbUrl, {
-    method: 'post',
-    body: JSON.stringify(body),
-    headers: {'Content-Type': 'application/json'}
-  });
-  console.log(response);
-}
+import postNewUrl from '../utilities/postNewUrl';
 
 function UrlForm() {
 
-  const handleSubmit = (e: any) => { //TODO - figure out why type FormEvent isnt recognized
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const body = {
@@ -26,7 +15,7 @@ function UrlForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>{process.env.REACT_APP_SERVER_URL}</h2>
+      <h2>Create a new Url alias:</h2>
       <div>
         <label htmlFor="longurl">Source Url:</label>
         <input type="text" id="longurl" name="longurl"/>
